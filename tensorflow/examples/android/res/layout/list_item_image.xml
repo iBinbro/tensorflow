@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:scaleType="centerInside"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:id="@+id/list_captured_image"
+            android:contentDescription="@string/list_item_image"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_edit_white_18dp"
+            android:background="@drawable/circular_button"
+            android:layout_margin="25dp"
+            android:id="@+id/edit_image_caption"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/baseline_autorenew_white_18dp"
+            android:background="@drawable/circular_button"
+            android:layout_margin="25dp"
+            android:id="@+id/edit_refresh_caption"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2016 The TensorFlow Authors. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<resources>
+    <!--string name="app_name">TensorFlow Demo</string-->
+    <string name="activity_name_classification">TF Classify</string>
+    <string name="activity_name_detection">TF Detect</string>
+    <string name="activity_name_stylize">TF Stylize</string>
+    <string name="activity_name_speech">TF Speech</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    
+    <string name="app_name">PhotoSearch</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_speak">Speak</string>
+    <string name="title_activity_detail">Image Search</string>
+    <string name="gallery">Gallery</string>
+    <string name="Capture">Capture</string>
+    <string name="pref_search_key" translatable="false">search_engine</string>
+    <string name="pref_search_default_value">2</string>
+    <string name="action_login">Login</string>
+    <string name="submit_login">Sign in</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="signUp">Sign up</string>
+    <string name="ok">OK</string>
+    <string name="cancel">@android:string/cancel</string>
+    <string name="delete_list_item">Delete this list item</string>
+    <string name="edit_list_item">Edit this list item</string>
+    <string name="accept_list_item_edit">Accept the list item edit</string>
+    <string name="reject_list_item_edit">Reject the list item edit</string>
+    <string name="search_image">The captured Image</string>
+    <string name="speak_main_word">Speaks the word</string>
+    <string name="shares_the_word">Share the word to get the meaning</string>
+    <string name="dialog_captured_image">The captured image enlarged</string>
+    <string name="close_enlarged_image">An exit button that closes the enlarged image</string>
+    <string name="grid_image">An image in the gallery grid</string>
+    <string name="list_item_image">The first content of the listView - an image</string>
+    <string name="select_all_action_bar">SELECT ALL</string>
+    <string name="gallery_save">save</string>
+    <string name="gallery_delete">delete</string>
+    <string name="gallery_share">share</string>
+    <string name="gallery_edit">edit</string>
+    <string name="gallery_add_category">Add category</string>
+    <string name="gallery_add_word">Add Word</string>
+    <string name="Speak">Speak</string>
+    
+    <string-array name="pref_search_engine">
+        <item>Pixabay</item>
+        <item>Open Clip Art</item>
+    </string-array>
+    9
+    <string-array name="pref_search_engine_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

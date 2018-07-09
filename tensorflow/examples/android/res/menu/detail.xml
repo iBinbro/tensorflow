@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.tensorflow.demo.photoSearch.DetailActivity">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+            android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_item_save"
+        app:showAsAction="ifRoom"
+        android:title="@string/gallery_save"
+        android:visible="false"
+        android:icon="@drawable/ic_save_white_18dp"/>
+    <item
+        android:id="@+id/menu_item_delete"
+        app:showAsAction="ifRoom"
+        android:title="@string/gallery_delete"
+        android:visible="false"
+        android:icon="@drawable/ic_delete_white_18dp"/>
+    <item
+        android:id="@+id/menu_item_share"
+        app:showAsAction="ifRoom"
+        android:title="@string/gallery_share"
+        android:visible="false"
+        android:icon="@drawable/ic_share_white_18dp"/>
+    <item
+        android:id="@+id/menu_item_edit"
+        app:showAsAction="ifRoom"
+        android:title="@string/gallery_edit"
+        android:visible="false"
+        android:icon="@drawable/ic_edit_white_18dp"/>
+    <item
+        android:id="@+id/menu_item_add_category"
+        android:title="@string/gallery_add_category"
+        android:visible="false"
+        android:icon="@drawable/ic_add_black_18dp"/>
+    <item
+        android:id="@+id/menu_item_add_word"
+        android:title="@string/gallery_add_word" />
+</menu>
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:id="@+id/grid_text"
+        android:textSize="14pt"
+        android:background="@color/colorPrimaryDark" />
+
+    <FrameLayout
+        android:layout_width="match_parent" android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/explanationProgress"
+            android:visibility="visible"
+            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <GridView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_gridview"
+                android:columnWidth="90dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+
+                />
+            <GridView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_gridview1"
+                android:columnWidth="500sp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+            <!--android:background="@color/colorPrimaryDark"-->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/speak_text"
+                    android:src="@drawable/ic_volume_up_white_18dp"
+                    android:background="@drawable/circular_button"
+                    android:contentDescription="@string/speak_main_word"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/share_text"
+                    android:src="@drawable/ic_share_white_18dp"
+                    android:background="@drawable/circular_button"
+                    android:contentDescription="@string/shares_the_word"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

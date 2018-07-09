@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:title="Search Engine"
+        android:key="search_engine"
+        android:dialogTitle="Choose Search Engine"
+        android:entries="@array/pref_search_engine"
+        android:entryValues="@array/pref_search_engine_values"
+        android:defaultValue="1">
+    </ListPreference>
+
+
+</PreferenceScreen>
+

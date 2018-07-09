@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="500dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:id="@+id/safety_question"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="14dp"
+            android:paddingLeft="10dp"
+            />
+        <EditText android:layout_height="100dp"
+            android:layout_width="500dp"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:paddingTop="14dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/new_caption"
+            android:visibility="visible"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/safety_ok"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_done_black_24dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/safety_cancel"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_clear_black_24dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
