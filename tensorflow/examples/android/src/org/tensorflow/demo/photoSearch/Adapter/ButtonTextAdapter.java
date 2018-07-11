@@ -1,5 +1,6 @@
 package org.tensorflow.demo.photoSearch.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -235,8 +236,11 @@ public class ButtonTextAdapter extends AphasiaAdapter {
 
                     final File imgFile = new  File(mData.get(position).toString().replace("file://",""));
 
+                    Log.d("Button text file ", imgFile.getPath());
+
                     mHolder.mImage =  view.findViewById(R.id.list_captured_image);
                     mHolder.mImageButtonEdit = view.findViewById(R.id.edit_image_caption);
+                    mHolder.mImageBtnRefresh = view.findViewById(R.id.edit_refresh_caption);
 
                     Glide.with(context).load(imgFile).into(mHolder.mImage);
 
@@ -257,7 +261,7 @@ public class ButtonTextAdapter extends AphasiaAdapter {
                     setImageEditBtnClickListener(mHolder);
                     Log.d("fileName",imgFile.toString());
 
-                    //setResultRefreshClickListener(mHolder);
+                    setResultRefreshClickListener(mHolder, Uri.fromFile(new File(mData.get(position).toString())));
 
                     view.setTag(mHolder);
                     break;
@@ -305,6 +309,7 @@ public class ButtonTextAdapter extends AphasiaAdapter {
         private ImageButton mImgBtnAcceptEdit;
         private ImageButton mImgBtnRejectEdit;
         private ProgressBar mProgressBar;
+        private ImageButton mImageBtnRefresh;
     }
 
 
@@ -490,12 +495,18 @@ public class ButtonTextAdapter extends AphasiaAdapter {
 
 
 
-    private void setResultRefreshClickListener(ViewHolder mHolder, String targetFilename){
-        Intent detailFragment = new Intent(getContext(), DetailActivity.class);
-        Uri mLocationForPhotos = Uri.parse(getImageLocation());
-        detailFragment.putExtra(SelectActionFragment.EXTRA_IMAGE,mLocationForPhotos);
-        detailFragment.putExtra(SelectActionFragment.EXTRA_TARGET, targetFilename);
-        getContext().startActivity(detailFragment);
+    private void setResultRefreshClickListener(ViewHolder mHolder, final Uri targetFilename){
+        mHolder.mImageBtnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent detailFragment = new Intent(getContext(), DetailActivity.class);
+                detailFragment.putExtra(SelectActionFragment.EXTRA_IMAGE, targetFilename);
+
+                context.startActivity(detailFragment);
+                ((Activity) context).finish();
+            }
+        });
+
 
     }
     private String[] getImageUrl (String searchEngine, String JSONString){

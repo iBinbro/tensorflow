@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,7 @@ import org.tensorflow.demo.DetectorActivity;
 import org.tensorflow.demo.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -36,11 +38,17 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
     public final static String EXTRA_TARGET = "com.example.android.sunshine.TARGET";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final String applicationDirectory = "Aphasia";
-    static final Uri mLocationForPhotos = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), applicationDirectory));
+    static final File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), applicationDirectory);
+
 
     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
-    String targetFilename = " ";
+
+    String imageFileName = "";
+
+    File imageFile = null;
+
+    Uri testUri = null;
 
 
     public SelectActionFragment() {
@@ -57,32 +65,22 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
 
         Button cameraButton = (Button) rootView.findViewById(R.id.camera);
 
-        /*StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());*/
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
-                targetFilename = "sun" + currentDateTimeString.replace(" ","") + ".jpg";
+                imageFileName = "sun" + currentDateTimeString.replace(" ","");
 
-                //File imageFile = File.createTempFile("sun" + currentDateTimeString, ".jpg", mLocationForPhotos);
-
-                //File imageFile =  File.createTempFile(
-                  //      imageFileName,  /* prefix */
-                  //  ".jpg",         /* suffix */
-                  //      storageDir      /* directory */
-                //);*/
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //Uri photoURI = FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".org.tensorflow.demo.photoSearch.provider",)
-                //Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".my.package.name.provider", createImageFile());
-
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.withAppendedPath(mLocationForPhotos, targetFilename));
+                Uri photoURI = testUri = GetFileUri();
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
                 }
+
+
             }
         });
 
@@ -147,23 +145,33 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
 
             Intent detailFragment = new Intent(getActivity(), DetailActivity.class);
-            detailFragment.putExtra(EXTRA_IMAGE,mLocationForPhotos);
-            detailFragment.putExtra(EXTRA_TARGET, targetFilename);
+            detailFragment.putExtra(EXTRA_IMAGE,testUri);
             startActivity(detailFragment);
 
 
-            /*DetailActivity nextFrag= new DetailActivity();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(EXTRA_IMAGE,mLocationForPhotos);
-            bundle.putString(EXTRA_TARGET, targetFilename);
+        }
+    }
 
-            nextFrag.setArguments(bundle);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container,nextFrag)
-                    .addToBackStack(null)
-                    .commit();*/
+    private void createFile(){
+
+        imageFileName = "sun" + currentDateTimeString.replace(" ","");
+
+        try{
+            imageFile = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */);
+
+        }catch (IOException e){
 
         }
+
+    }
+
+    private Uri GetFileUri(){
+        createFile();
+        return FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".org.tensorflow.demo.provider", imageFile);
+
     }
 
 }

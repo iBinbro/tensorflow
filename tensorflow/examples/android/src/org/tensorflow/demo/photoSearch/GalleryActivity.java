@@ -130,10 +130,10 @@ public class GalleryActivity extends AppCompatActivity implements  SafeAction.On
             NewFileNames[i] = fileNames[NameAndDateModified.get(fileDateModifiedList.get(fileLength - i - 1))];
         }
 
-        CheckBox imageButton = (CheckBox) findViewById(R.id.btn_slide);
+        CheckBox imageButton = findViewById(R.id.btn_slide);
 
         imageGridAdapter = new ImageGridAdapter(this, NewFileNames, imageButton);
-        final GridView gridView = (GridView) findViewById(R.id.image_gridview);
+        final GridView gridView = findViewById(R.id.image_gridview);
         gridView.setAdapter(imageGridAdapter);
 
 

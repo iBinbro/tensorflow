@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.View;
@@ -96,39 +97,32 @@ public class DetailActivity extends CommonDetailOpen{
 
     private Uri getImage() {
         Intent intent = this.getIntent();
-        Uri ImgDirectory = intent.getParcelableExtra(SelectActionFragment.EXTRA_IMAGE);
-        String FileName = intent.getStringExtra(SelectActionFragment.EXTRA_TARGET);
-        Uri FullFilePath = Uri.withAppendedPath(ImgDirectory,FileName);
-        Log.d("ImgDirectory",  ImgDirectory.toString());
-        Log.d("FileName", FileName);
-        return FullFilePath;
 
 
-        /*Bundle bundle = this.getArguments();
-        if (bundle != null){
+        Uri newFile = (Uri) intent.getExtras().get(SelectActionFragment.EXTRA_IMAGE);
+        Log.d("new file path ", newFile.toString());
 
-            Uri ImgDirectory = bundle.getParcelable(SelectActionFragment.EXTRA_IMAGE);
-            String FileName = bundle.getString(SelectActionFragment.EXTRA_TARGET);
-            Uri FullFilePath = Uri.withAppendedPath(ImgDirectory, FileName);
-            return FullFilePath;
-        }
-        return null;*/
+        return newFile;
 
     }
 
 
     private void captureAndSearchImage() {
 
-        Uri fullFilePath = imageFile = getImage();
-        //Log.v("PRINTING", fullFilePath.toString());
-        File imgFile = new File(fullFilePath.toString().replace("file://", ""));
+        imageFile = getImage();
+        File imgFile = new File(imageFile.getPath());
+
+
         _FileName = imgFile.toString();
 
         if (imgFile.exists()) {
             //run CloudSight Search
+            Log.d("Check Exist ", "Check Exist");
             DetailActivity.FetchImageDescription fetchImageDescription = new DetailActivity.FetchImageDescription(this);
             fetchImageDescription.execute(imgFile);
         }
+
+
     }
 
 
@@ -157,11 +151,13 @@ public class DetailActivity extends CommonDetailOpen{
 
             listOfWords = searchResult.split(" ");
 
-            //_FileName = imageFile.toString();
+            _FileName = imageFile.getPath().toString();
+
 
             Log.v("DetailActivity fname ", _FileName);
 
-            String[] FileNameArray = imageFile.toString().split("/");
+            //String[] FileNameArray = imageFile.toString().split("/");
+            String[] FileNameArray = _FileName.split("/");
 
             TxtFileName = FileNameArray[FileNameArray.length - 1].replace(".jpg", ".txt");
 
@@ -175,7 +171,7 @@ public class DetailActivity extends CommonDetailOpen{
             adapter = new ButtonTextAdapter(context, myTTS, prefSearchParam) ;
 
 
-            adapter.addImage(imageFile.toString());
+            adapter.addImage(_FileName);
             adapter.addResult(searchResult);
 
 
