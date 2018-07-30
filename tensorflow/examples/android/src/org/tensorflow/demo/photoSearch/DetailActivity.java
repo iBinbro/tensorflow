@@ -84,21 +84,8 @@ public class DetailActivity extends CommonDetailOpen{
 
 
 
-/*    private void writeToFile(String data, String fileName, Context context) {
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }*/
-
     private Uri getImage() {
         Intent intent = this.getIntent();
-
-
         Uri newFile = (Uri) intent.getExtras().get(SelectActionFragment.EXTRA_IMAGE);
         Log.d("new file path ", newFile.toString());
 
@@ -111,7 +98,6 @@ public class DetailActivity extends CommonDetailOpen{
 
         imageFile = getImage();
         File imgFile = new File(imageFile.getPath());
-
 
         _FileName = imgFile.toString();
 

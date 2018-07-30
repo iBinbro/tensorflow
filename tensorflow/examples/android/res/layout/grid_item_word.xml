@@ -15,4 +15,5 @@
         android:id="@+id/image_word"
         android:contentDescription="@string/app_name"
         android:layout_marginTop="10sp"/>
+
 </LinearLayout>

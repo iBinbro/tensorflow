@@ -189,6 +189,10 @@ dependencies {
 
     implementation 'com.android.support:recyclerview-v7:26.0.0'
 
+// https://mvnrepository.com/artifact/net.sf.extjwnl/extjwnl (WORDNET Library)
+    compile group: 'net.sf.extjwnl', name: 'extjwnl', version: '1.6.9'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

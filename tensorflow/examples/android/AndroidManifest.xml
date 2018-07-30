@@ -34,6 +34,15 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppCompatTheme">
 
+        <activity
+            android:name="org.tensorflow.demo.photoSearch.LoginActivity"
+            android:label="PhotoSearch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="org.tensorflow.demo.ClassifierActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/activity_name_classification">
@@ -74,15 +83,6 @@
             </intent-filter>
         </activity>
 
-
-        <activity
-            android:name="org.tensorflow.demo.photoSearch.LoginActivity"
-            android:label="PhotoSearch">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="org.tensorflow.demo.photoSearch.GalleryActivity"
             android:parentActivityName="org.tensorflow.demo.photoSearch.NewMainActivity">
@@ -185,7 +185,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.tensorflow.demo.photoSearch.WordCategoriesActivity"/>
         </activity>
-
+        <activity android:name="org.tensorflow.demo.PhotoDetectorChildActivity"
+            android:parentActivityName="org.tensorflow.demo.photoSearch.ImageExplanationActivity">
+            <intent-filter>
+                <action android:name="android.media.action.PHOTO_DETECTOR" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.tensorflow.demo.PhotoDetectorChildActivity"/>
+        </activity>
         <provider
             android:name="org.tensorflow.demo.photoSearch.GenericFileProvider"
             android:authorities="${applicationId}.org.tensorflow.demo.provider"

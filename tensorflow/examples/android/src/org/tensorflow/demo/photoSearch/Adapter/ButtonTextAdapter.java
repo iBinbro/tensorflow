@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.tensorflow.demo.PhotoDetectorChildActivity;
 import org.tensorflow.demo.photoSearch.AccessorsAndSetters.Color;
 import org.tensorflow.demo.photoSearch.CommonDetailOpen;
 import org.tensorflow.demo.photoSearch.DetailActivity;
@@ -248,13 +250,19 @@ public class ButtonTextAdapter extends AphasiaAdapter {
                         @Override
                         public void onClick(View view) {
                             if (((CommonDetailOpen) context).ONLONGCLICKMODE) return;
+
+                            /*
                             DialogFragment newFragment = new ImageDialog();
                             Bundle bundle = new Bundle();
                             bundle.putString(EXTRA_DIALOG_IMAGE, imgFile.toString());
 
                             newFragment.setArguments(bundle);
                             newFragment.show(((AppCompatActivity) context).getSupportFragmentManager(),"what?");
+                            */
 
+                            Intent photoDetectorChildActivity = new Intent(getContext(), PhotoDetectorChildActivity.class);
+                            photoDetectorChildActivity.putExtra(EXTRA_DIALOG_IMAGE, imgFile.toString());
+                            context.startActivity(photoDetectorChildActivity);
                         }
                     });
 

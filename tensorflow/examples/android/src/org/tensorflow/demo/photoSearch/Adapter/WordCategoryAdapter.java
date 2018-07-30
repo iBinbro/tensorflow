@@ -3,6 +3,7 @@ package org.tensorflow.demo.photoSearch.Adapter;
 import android.content.Context;
 import android.net.Uri;
 
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 //import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -52,12 +53,14 @@ public class WordCategoryAdapter extends GridAdapter {
     private ArrayList<Words> mData = new ArrayList<>();
     private Context context;
     private String searchEngine;
+    private TextToSpeech myTTS;
 
-    public WordCategoryAdapter(Context _context, int resource, String _searchEngine){
+    public WordCategoryAdapter(Context _context, int resource, String _searchEngine, TextToSpeech tts){
         super(_context, resource);
         inflater = LayoutInflater.from(_context);
         context = _context;
         searchEngine = _searchEngine;
+        this.myTTS = tts;
     }
 
     public void addItem(final String category, final Words wordData){
@@ -262,7 +265,7 @@ public class WordCategoryAdapter extends GridAdapter {
                 TextView textView = (TextView) ((AppCompatActivity) context).findViewById(R.id.search_word);
                 textView.setText(category);
 
-                ArrayListGridAdapter adapter = new ArrayListGridAdapter(context, R.id.item_grid);
+                ArrayListGridAdapter adapter = new ArrayListGridAdapter(context, R.id.item_grid, myTTS);
 
                 if (!category.equals("INTERNET")){
 

@@ -153,6 +153,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
       cropSize = MB_INPUT_SIZE;
     } else {
       try {
+
         detector = TensorFlowObjectDetectionAPIModel.create(
             getAssets(), TF_OD_API_MODEL_FILE, TF_OD_API_LABELS_FILE, TF_OD_API_INPUT_SIZE);
         cropSize = TF_OD_API_INPUT_SIZE;

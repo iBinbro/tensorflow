@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 //import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -23,14 +24,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Locale;
+
 
 /**
  * Created by mgo983 on 11/13/17.
  */
 
-public class WordCategoriesActivity extends AppCompatActivity {
+public class WordCategoriesActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private TextToSpeech myTTS;
+    private int MY_DATA_CHECK_CODE = 0;
+
 
 
 
@@ -39,6 +45,14 @@ public class WordCategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_sense_disambiguation);
+
+        //Prepare for text to speech
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+
+        myTTS = new TextToSpeech(this, this);
+
 
         GridAdapter adapter;
 
@@ -56,7 +70,7 @@ public class WordCategoriesActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.explanationProgress);
         progressBar.setVisibility(View.INVISIBLE);
 
-        adapter = new WordCategoryAdapter(this, R.layout.item_category, prefSearchParam);
+        adapter = new WordCategoryAdapter(this, R.layout.item_category, prefSearchParam, myTTS);
 
 
         CheckInternetConnection checkInternetConnection = new CheckInternetConnection(this);
@@ -88,6 +102,25 @@ public class WordCategoriesActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onInit(int initStatus) {
+
+        if (initStatus == TextToSpeech.SUCCESS) {
+            myTTS.setLanguage(Locale.US);
+            myTTS.setSpeechRate(0.5f);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        // Don't forget to shutdown tts!
+        if (myTTS != null) {
+            myTTS.stop();
+            myTTS.shutdown();
+        }
+        super.onDestroy();
     }
 
 }

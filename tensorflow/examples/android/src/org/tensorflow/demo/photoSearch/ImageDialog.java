@@ -1,6 +1,7 @@
 package org.tensorflow.demo.photoSearch;
 
 import android.app.Dialog;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -63,4 +64,5 @@ public class ImageDialog extends DialogFragment {
 
         return dialog;
     }
+
 }

@@ -47,6 +47,7 @@ public class ImageExplanationActivity extends AppCompatActivity implements TextT
         setContentView(R.layout.explainfragment);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         Intent intent = this.getIntent();
         String searchParam = intent.getStringExtra(ButtonTextAdapter.SEARCH_PARAM);
         String [] searchParams = {""};

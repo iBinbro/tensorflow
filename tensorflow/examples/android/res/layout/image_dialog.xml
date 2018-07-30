@@ -7,7 +7,8 @@
         android:layout_width="500dp"
         android:layout_height="500dp"
         android:id="@+id/new_dialog"
-        android:contentDescription="@string/dialog_captured_image"/>
+        android:contentDescription="@string/dialog_captured_image"
+        android:background="@drawable/ic_edit_white_18dp"/>
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

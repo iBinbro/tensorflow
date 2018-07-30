@@ -1,6 +1,7 @@
 package org.tensorflow.demo.photoSearch.Adapter;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ as a whole. THey were built to deal with an item at a time.
 * */
 
 public class ArrayListGridAdapter extends AphasiaAdapter {
+
+    private final TextToSpeech myTTS;
+
     public Context context;
 
     public LayoutInflater inflater;
@@ -35,18 +39,20 @@ public class ArrayListGridAdapter extends AphasiaAdapter {
 
     private Color availableColor = new Color();
 
-    public ArrayListGridAdapter(Context context, int resource){
+    public ArrayListGridAdapter(Context context, int resource, TextToSpeech tts){
         super(context,resource);
 
         this.context = context;
 
         inflater = LayoutInflater.from(context);
 
+        this.myTTS = tts;
+
     }
 
 
 
-    public ArrayListGridAdapter(Context context, String[] imageUrls){
+    public ArrayListGridAdapter(Context context, String[] imageUrls, TextToSpeech tts){
         super(context, R.layout.item_grid,imageUrls);
 
         this.context = context;
@@ -55,14 +61,18 @@ public class ArrayListGridAdapter extends AphasiaAdapter {
 
         inflater = LayoutInflater.from(context);
 
+        this.myTTS = tts;
+
     }
 
-    public ArrayListGridAdapter(Context context, int resource, String [] objects){
+    public ArrayListGridAdapter(Context context, int resource, String [] objects, TextToSpeech tts){
         super(context, resource, objects);
 
         this.context = context;
 
         inflater = LayoutInflater.from(context);
+
+        this.myTTS = tts;
 
     }
 
@@ -109,7 +119,10 @@ public class ArrayListGridAdapter extends AphasiaAdapter {
 
         TextView textView = (TextView) convertView.findViewById(R.id.image_text_view);
         textView.setVisibility(View.VISIBLE);
-        textView.setText((String) mWord.get(position));
+        String word = (String) mWord.get(position);
+        textView.setText(word);
+
+        imageDescriptionSpeak(imageView, word);
 
         String searchParam = (String) mData.get(position);
 
@@ -146,5 +159,15 @@ public class ArrayListGridAdapter extends AphasiaAdapter {
         }
 
 
+    }
+
+    private void imageDescriptionSpeak(ImageView imageView, final String word){
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myTTS.speak(word, TextToSpeech.QUEUE_FLUSH, null);
+
+            }
+        });
     }
 }
