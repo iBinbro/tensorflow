@@ -9,6 +9,15 @@
         android:defaultValue="1">
     </ListPreference>
 
+    <ListPreference
+        android:title="Database"
+        android:key="database"
+        android:dialogTitle="choose database"
+        android:entries="@array/pref_database"
+        android:entryValues="@array/pref_database_values"
+        android:defaultValue="1"
+        />
+
 
 </PreferenceScreen>
 

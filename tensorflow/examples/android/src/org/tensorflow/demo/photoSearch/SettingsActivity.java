@@ -23,6 +23,7 @@ public class SettingsActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
         bindPreferenceSummaryToValue(findPreference("search_engine"));
+        bindPreferenceSummaryToValue(findPreference("database"));
     }
 
     private void bindPreferenceSummaryToValue(Preference preference){

@@ -494,4 +494,7 @@ public class FetchClipArt extends AsyncTask<String[], Void, ArrayList<ArrayList<
     }
 
 
+    private void wordNetSearch(String[] listOfWords){
+
+    }
 }
