@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import org.tensorflow.demo.DetectorActivity;
 import org.tensorflow.demo.R;
+import org.tensorflow.demo.photoSearch.Evocation.Evocation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,8 +106,6 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
                     //delete imagefile
                     deleteFile(photoURI);
                 }
-
-
             }
         });
 
@@ -123,6 +122,7 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
             // construct the dictionary object and open it
             IDictionary dict = new Dictionary( url);
             testDictionary();
+
             //getHypernyms(dict);
         }catch (IOException e){
             Log.e("JWI", "file not found " + e);
@@ -220,6 +220,7 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
 
     private Uri GetFileUri(){
         createFile();
+
         return FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".org.tensorflow.demo.provider", imageFile);
 
     }
@@ -244,9 +245,9 @@ public class SelectActionFragment extends android.support.v4.app.Fragment {
         String path = DocumentDir.getAbsolutePath();
 
         URL url = new URL("file", null , path );
+        Log.d("path", url.toString());
         //File file = File.createTempFile(WNDICT,"", DocumentDir);
         //URL url = new URL (FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".org.tensorflow.demo.provider", "dict").toString());
-
 
         //Copy dict folder to phone if it does not already exist
 

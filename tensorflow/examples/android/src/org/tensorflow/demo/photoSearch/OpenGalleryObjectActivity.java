@@ -99,7 +99,7 @@ public class OpenGalleryObjectActivity extends CommonDetailOpen {
 
 
 
-                ButtonTextAdapter adapter = new ButtonTextAdapter(this, myTTS, prefSearchParam);
+                adapter = new ButtonTextAdapter(this, myTTS, prefSearchParam);
 
                 Intent args = this.getIntent();
 

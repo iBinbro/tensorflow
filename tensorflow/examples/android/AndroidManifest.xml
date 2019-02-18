@@ -34,6 +34,18 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppCompatTheme">
 
+        <activity android:name=".photoSearch.DisplayEvocationWords"
+            android:parentActivityName=".photoSearch.OpenGalleryObjectActivity">
+            <intent-filter>
+                <action android:name="android.media.action.WORDCATEGORIES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="org.tensorflow.demo.photoSearch.DisplayEvocationWords"/>
+
         <activity
             android:name="org.tensorflow.demo.photoSearch.LoginActivity"
             android:label="PhotoSearch">

@@ -3,8 +3,10 @@ package org.tensorflow.demo.photoSearch.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.DialogFragment;
 //import android.support.v7.app.ActionBarActivity;
@@ -27,6 +29,7 @@ import org.tensorflow.demo.PhotoDetectorChildActivity;
 import org.tensorflow.demo.photoSearch.AccessorsAndSetters.Color;
 import org.tensorflow.demo.photoSearch.CommonDetailOpen;
 import org.tensorflow.demo.photoSearch.DetailActivity;
+import org.tensorflow.demo.photoSearch.DisplayEvocationWords;
 import org.tensorflow.demo.photoSearch.EditCaptionDialog;
 import org.tensorflow.demo.photoSearch.FetchClipArt;
 import org.tensorflow.demo.photoSearch.ImageDialog;
@@ -330,11 +333,25 @@ public class ButtonTextAdapter extends AphasiaAdapter {
             @Override
             public void onClick(View view) {
                 if (((CommonDetailOpen) context).ONLONGCLICKMODE ) return;
-                myTTS.speak(focusWord, TextToSpeech.QUEUE_FLUSH, null);
 
-                Intent wordCategoryActivity = new Intent(getContext(), WordCategoriesActivity.class);
-                wordCategoryActivity.putExtra(SEARCH_PARAM, focusWord);
-                context.startActivity(wordCategoryActivity);
+                //highlight word when spoken
+                //String focusWordArray [] = focusWord.split(" ");
+                //for (int i = 0; i < focusWordArray.length; i++){
+                    myTTS.speak(focusWord, TextToSpeech.QUEUE_FLUSH, null);
+
+                //}
+
+                /*if (isEvokedWord()){
+                    Intent evocationActivity = new Intent(getContext(), DisplayEvocationWords.class);
+                    evocationActivity.putExtra(SEARCH_PARAM,focusWord);
+                    context.startActivity(evocationActivity);
+
+                }else{*/
+                    Intent wordCategoryActivity = new Intent(getContext(), WordCategoriesActivity.class);
+                    wordCategoryActivity.putExtra(SEARCH_PARAM, focusWord);
+                    context.startActivity(wordCategoryActivity);
+
+                //}
 
                 /*Intent ImageExplanationActivity = new Intent(getContext(), com.example.android.sunshine.app.ImageExplanationActivity.class);
                 ImageExplanationActivity.putExtra(SEARCH_PARAM, focusWord);
@@ -599,6 +616,15 @@ public class ButtonTextAdapter extends AphasiaAdapter {
         }catch(IllegalAccessException e){
 
         }
+
+    }
+
+
+    private boolean isEvokedWord(){
+        //get preferred search engine
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefSearchParam = sharedPref.getString("database", "1");
+        return prefSearchParam.equals("2");
 
     }
 }

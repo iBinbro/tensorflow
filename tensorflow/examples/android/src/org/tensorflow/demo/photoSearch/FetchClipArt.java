@@ -1,8 +1,11 @@
 package org.tensorflow.demo.photoSearch;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 //import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import org.tensorflow.demo.photoSearch.Adapter.ButtonTextAdapter;
 import org.tensorflow.demo.photoSearch.Adapter.GridAdapter;
 import org.tensorflow.demo.photoSearch.Adapter.WordCategoryAdapter;
 import org.tensorflow.demo.photoSearch.Adapter.Words;
+import org.tensorflow.demo.photoSearch.Evocation.Evocation;
 import org.tensorflow.demo.photoSearch.data.AddWord;
 import org.tensorflow.demo.R;
 
@@ -104,6 +108,7 @@ public class FetchClipArt extends AsyncTask<String[], Void, ArrayList<ArrayList<
                 ArrayList<String> currResult = Result.get(FIRST_POSITION);
                 if (currResult != null){
                     String searchString = currResult.get(FIRST_POSITION);
+                    //localWordNetSearch(searchString);
                     localCategorySearch(searchString, Result, FIRST_POSITION);
                     //addInternetItem(searchString,Result,FIRST_POSITION);
 
@@ -415,6 +420,70 @@ public class FetchClipArt extends AsyncTask<String[], Void, ArrayList<ArrayList<
         }
     }
 
+    private void localWordNetSearch(String searchString){
+        // first find out if it is in the evocation database;
+        Evocation evocation = new Evocation(context);
+        ArrayList<String> evocative_words = evocation.findEvocationWords(searchString);
+        getImageFromFirebase(evocative_words, 0);
+    }
+
+    private void getImageFromFirebase(final ArrayList<String> evocative_words, final int position){
+        //grid images for evocative words
+            if (position < evocative_words.size()){
+                final Query mDatabaseQuery = FirebaseDatabase.getInstance().getReference(AddWord.WORD_REFERENCE).child(evocative_words.get(position).toLowerCase()).limitToFirst(1);
+                final String WORD_IMAGE_REFERENCE  = "symbols";
+                mDatabaseQuery.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            for (DataSnapshot child : dataSnapshot.getChildren()){
+                                String wordEntries = (String) child.getValue();
+                                String[] getFileName = wordEntries.split("/");
+                                Log.d("The entries: ", wordEntries);
+                                StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+                                final String category = getFileName[0];
+                                String fileName = getFileName[2];
+
+                                firebaseStorage.child( WORD_IMAGE_REFERENCE + "/" + getFileName[0] + "/" + getFileName[2]).getDownloadUrl()
+                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                Words words = new Words(evocative_words.get(position), uri.toString(), category, "LOCAL");
+
+                                                adapter.addItem(category, words);
+                                                int newPosition = position + 1;
+                                                getImageFromFirebase(evocative_words, newPosition);
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        final int QUERY_PARAMETER = 0;
+                                        final int URL_JSON = 1;
+                                        //ArrayList<String> currResult = evocative_words.get(position);
+                                        adapter.addItem(evocative_words.get(QUERY_PARAMETER) + "&&" + evocative_words.get(URL_JSON));
+                                        getImageFromFirebase(evocative_words, position + 1);
+                                        Log.d("Download error ", e.toString());
+
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+
+
+    }
+
     private void localCategorySearch(final String searchString, final ArrayList Result, final int position){
 
             FirebaseUser firebaseUser = WordCategoriesActivity.firebaseAuth.getCurrentUser();
@@ -496,5 +565,16 @@ public class FetchClipArt extends AsyncTask<String[], Void, ArrayList<ArrayList<
 
     private void wordNetSearch(String[] listOfWords){
 
+    }
+
+    private Boolean isWordNet(){
+
+        // tests to know the preferred category organization - Smarty Symbols or WordNet
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String prefDatabaseParam = sharedPref.getString("database", "1");
+
+        return prefDatabaseParam.equals("1");
     }
 }
